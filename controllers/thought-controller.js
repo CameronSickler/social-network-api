@@ -1,8 +1,32 @@
-//need to add code inside braces
-const { } = require('../models');
+const { Thought, User } = require('../models');
 
 
-//code here
+
+const thoughtController = {
+
+    //Create Thought
+
+    //Get All Thoughts
 
 
-// module.exports = needSomethingHere;
+
+    //Get Thought By ID
+
+    //Update Thought By ID
+
+    //Delete Thought by ID
+
+
+
+    //Add Reaction
+
+    //Delete Reaction by ID
+
+
+};
+
+
+
+
+
+module.exports = thoughtController;

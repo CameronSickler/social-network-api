@@ -1,8 +1,26 @@
-//need to add code inside braces
-const { } = require('../models');
+const { User } = require('../models');
 
 
-//code here
+const userController = {
+
+    // Create User
+
+    //Get All Users
+
+    //Get User by ID
 
 
-// module.exports = needSomethingHere;
+
+    //Update User by ID
+
+    //Delete User by ID
+
+
+
+    //Delete Friend
+
+};
+
+
+
+module.exports = userController; 
