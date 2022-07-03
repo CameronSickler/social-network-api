@@ -4,28 +4,155 @@ const { Thought, User } = require('../models');
 
 const thoughtController = {
 
-    //Create Thought
 
-    //Get All Thoughts
+    // Create Thought
+    createThought({ params, body }, res) {
+
+        Thought.create(body)
+
+            .then(({ _id }) => {
+
+                return User.findOneAndUpdate({ _id: params.userId }, { $push: { thoughts: _id } }, { new: true });
+            })
+
+            .then(dbThoughtData => {
+
+                if (!dbThoughtData) {
+                    res.status(404).json({ message: 'No Thought With This ID!' });
+                    return;
+                }
+                res.json(dbThoughtData)
+            })
+            .catch(err => res.json(err));
+    },
 
 
 
-    //Get Thought By ID
+    // Get All Thoughts
+    getAllThoughts(req, res) {
 
-    //Update Thought By ID
+        Thought.find({})
 
-    //Delete Thought by ID
+            .populate({ path: 'reactions', select: '-__v' })
+
+            .select('-__v')
+
+            .then(dbThoughtData => res.json(dbThoughtData))
+
+            .catch(err => {
+                console.log(err);
+                res.status(500).json(err);
+            });
+    },
 
 
 
-    //Add Reaction
+    // Get Thought By ID
+    getThoughtById({ params }, res) {
 
-    //Delete Reaction by ID
+        Thought.findOne({ _id: params.id })
 
+            .populate({ path: 'reactions', select: '-__v' })
+
+            .select('-__v')
+
+            .then(dbThoughtData => {
+
+                if (!dbThoughtData) {
+                    res.status(404).json({ message: 'No Thought With This ID!' });
+                    return;
+                }
+                res.json(dbThoughtData)
+            })
+
+            .catch(err => {
+                console.log(err);
+                res.sendStatus(400);
+            });
+    },
+
+
+
+    // Update Thought By ID
+    updateThought({ params, body }, res) {
+
+        Thought.findOneAndUpdate({ _id: params.id }, body, { new: true, runValidators: true })
+
+            .populate({ path: 'reactions', select: '-__v' })
+
+            .select('-___v')
+
+            .then(dbThoughtData => {
+
+                if (!dbThoughtData) {
+                    res.status(404).json({ message: 'No Thought With This ID!' });
+                    return;
+                }
+                res.json(dbThoughtData);
+            })
+            .catch(err => res.json(err));
+    },
+
+
+
+    // Delete Thought By ID
+    deleteThought({ params }, res) {
+
+        Thought.findOneAndDelete({ _id: params.id })
+
+            .then(dbThoughtData => {
+
+                if (!dbThoughtData) {
+                    res.status(404).json({ message: 'No Thought With This ID!' });
+                    return;
+                }
+                res.json(dbThoughtData);
+            })
+            .catch(err => res.status(400).json(err));
+    },
+
+
+
+    // Add Reaction
+    addReaction({ params, body }, res) {
+
+        Thought.findOneAndUpdate({ _id: params.thoughtId }, { $push: { reactions: body } }, { new: true, runValidators: true })
+
+            .populate({ path: 'reactions', select: '-__v' })
+
+            .select('-__v')
+
+            .then(dbThoughtData => {
+
+                if (!dbThoughtData) {
+                    res.status(404).json({ message: 'No Thought With This ID!' });
+                    return;
+                }
+                res.json(dbThoughtData);
+            })
+            .catch(err => res.status(400).json(err))
+
+    },
+
+
+
+    // Delete Reaction By ID
+    deleteReaction({ params }, res) {
+
+        Thought.findOneAndUpdate({ _id: params.thoughtId }, { $pull: { reactions: { reactionId: params.reactionId } } }, { new: true })
+
+            .then(dbThoughtData => {
+
+                if (!dbThoughtData) {
+                    res.status(404).json({ message: 'No Thought With This ID!' });
+                    return;
+                }
+                res.json(dbThoughtData);
+            })
+            .catch(err => res.status(400).json(err));
+    }
 
 };
-
-
 
 
 
