@@ -35,7 +35,7 @@ router.route('/:thoughtId/reactions')
     .post(addReaction);
 
 
-//Set up DELTE reaction
+//Set up DELETE reaction
 router.route('/:thoughtId/reactions/:reactionId')
     .delete(deleteReaction);
 
