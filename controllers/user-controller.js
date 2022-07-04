@@ -105,9 +105,9 @@ const userController = {
 
 
     // Add Friend
-    addFriend({ params }, res) {
+    addFriend(req, res) {
 
-        User.findOneAndUpdate({ _id: params.id }, { $push: { friends: params.friendId } }, { new: true })
+        User.findOneAndUpdate({ _id: req.params.userId }, { $push: { friends: req.params.friendId } }, { new: true })
 
             .populate({ path: 'friends', select: ('-__v') })
 
@@ -127,9 +127,9 @@ const userController = {
 
 
     // Delete Friend
-    deleteFriend({ params }, res) {
+    deleteFriend(req, res) {
 
-        User.findOneAndUpdate({ _id: params.id }, { $pull: { friends: params.friendId } }, { new: true })
+        User.findOneAndUpdate({ _id: req.params.userId }, { $pull: { friends: req.params.friendId } }, { new: true })
 
             .populate({ path: 'friends', select: '-__v' })
 

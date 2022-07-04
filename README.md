@@ -24,17 +24,14 @@ THEN I am able to successfully create and delete reactions to thoughts and add a
  
 ### Walkthrough Video Link
  
+https://www.youtube.com/watch?v=V59ASNMF5VA
 
 ===============================
- 
-### Link to Deployed Application on Heroku
- 
-===============================
-
 
 ### Link to GitHub Repository
 
- 
+https://github.com/CameronSickler/social-network-api
+
 ===============================
  
 ### My Profile Information
@@ -46,4 +43,4 @@ LinkedIn: linkedin.com/in/cameron-sickler-a17764106
  
 ### Resources
 
- NPM    Mongoose
+ NPM    Mongoose    Express
